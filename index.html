@@ -1,0 +1,1177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#C8102E">
+<title>Team Canada — The Math of Staying Together</title>
+<meta name="description" content="A briefing for Canadians who can read a balance sheet. The math of staying together — and the trap of being broken apart.">
+<link rel="canonical" href="https://teamcanadawins.netlify.app/">
+
+<!-- Favicons -->
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Team Canada">
+<meta property="og:locale" content="en_CA">
+<meta property="og:url" content="https://teamcanadawins.netlify.app/">
+<meta property="og:title" content="Team Canada — The Math of Staying Together">
+<meta property="og:description" content="Breaking up Canada is a math problem. The answer is: poorer. Here's the case for staying together — and getting rich doing it.">
+<meta property="og:image" content="https://teamcanadawins.netlify.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Team Canada — The Math of Staying Together">
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Team Canada — The Math of Staying Together">
+<meta name="twitter:description" content="Breaking up Canada is a math problem. The answer is: poorer. Here's the case for staying together — and getting rich doing it.">
+<meta name="twitter:image" content="https://teamcanadawins.netlify.app/og.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --paper: #FAF8F3;
+    --paper-deep: #F2EEE5;
+    --ink: #0E0E0E;
+    --ink-soft: #2A2A2A;
+    --mid: #555550;
+    --rule: #D8D2C4;
+    --maple: #C8102E;
+    --oxblood: #5A1418;
+    --bronze: #9C7A3E;
+    --serif: 'Fraunces', 'Editorial New', 'Times New Roman', serif;
+    --sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Consolas, monospace;
+
+    --max: 1280px;
+    --column: 720px;
+
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --reveal-y: 32px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--maple); color: var(--paper); }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; }
+
+  /* SCROLL PROGRESS */
+  .scroll-progress {
+    position: fixed; top: 0; left: 0;
+    height: 2px; width: 0;
+    background: var(--maple);
+    z-index: 100;
+    transition: width 80ms linear;
+  }
+
+  /* TOP NAV (frosted glass) */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 90;
+    padding: 18px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(250, 248, 243, 0.72);
+    backdrop-filter: saturate(140%) blur(18px);
+    -webkit-backdrop-filter: saturate(140%) blur(18px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 240ms var(--ease), padding 240ms var(--ease);
+  }
+  .nav.is-scrolled { border-bottom-color: var(--rule); padding: 12px 32px; }
+  .nav-mark {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  .nav-mark .leaf { font-size: 15px; line-height: 1; display: inline-block; transform: translateY(1px); }
+  .nav-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+  @media (max-width: 640px) {
+    .nav { padding: 14px 18px; }
+    .nav-meta { display: none; }
+  }
+
+  /* SIDE RAIL */
+  .rail {
+    position: fixed;
+    right: 32px; top: 50%;
+    transform: translateY(-50%);
+    z-index: 80;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+  }
+  .rail a {
+    text-decoration: none;
+    color: var(--mid);
+    padding: 6px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: color 240ms var(--ease);
+  }
+  .rail a::before {
+    content: ""; display: block;
+    width: 18px; height: 1px;
+    background: currentColor;
+    transition: width 240ms var(--ease), background 240ms var(--ease);
+  }
+  .rail a:hover { color: var(--ink); }
+  .rail a.is-active { color: var(--maple); }
+  .rail a.is-active::before { width: 32px; background: var(--maple); }
+  @media (max-width: 1024px) { .rail { display: none; } }
+
+  /* REVEAL PRIMITIVES */
+  .reveal { opacity: 0; transform: translateY(var(--reveal-y)); transition: opacity 1200ms var(--ease), transform 1200ms var(--ease); }
+  .reveal.is-in { opacity: 1; transform: translateY(0); }
+  .reveal-fade { opacity: 0; transition: opacity 1400ms var(--ease); }
+  .reveal-fade.is-in { opacity: 1; }
+  .stagger > * { opacity: 0; transform: translateY(28px); transition: opacity 900ms var(--ease), transform 900ms var(--ease); }
+  .stagger.is-in > * { opacity: 1; transform: translateY(0); }
+  .stagger.is-in > *:nth-child(1) { transition-delay: 0ms; }
+  .stagger.is-in > *:nth-child(2) { transition-delay: 120ms; }
+  .stagger.is-in > *:nth-child(3) { transition-delay: 240ms; }
+  .stagger.is-in > *:nth-child(4) { transition-delay: 360ms; }
+  .stagger.is-in > *:nth-child(5) { transition-delay: 480ms; }
+  .stagger.is-in > *:nth-child(6) { transition-delay: 600ms; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal, .reveal-fade, .stagger > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: 0 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    background: var(--paper);
+  }
+  .hero-grid {
+    max-width: var(--max);
+    margin: 0 auto;
+    width: 100%;
+    padding-top: 120px;
+    padding-bottom: 80px;
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--maple);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .eyebrow .leaf { font-size: 13px; line-height: 1; display: inline-block; }
+  .eyebrow::after {
+    content: ""; flex: 0 0 60px;
+    height: 1px; background: var(--maple);
+    margin-left: 4px;
+  }
+  .hero-title {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(56px, 11.5vw, 168px);
+    line-height: 0.93;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin-bottom: 36px;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--oxblood);
+    font-weight: 300;
+  }
+  .hero-sub {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(22px, 3.4vw, 38px);
+    line-height: 1.28;
+    color: var(--mid);
+    max-width: 880px;
+    letter-spacing: -0.012em;
+    margin-bottom: 56px;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    margin-top: 56px;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-stat { background: var(--paper); padding: 28px 24px; }
+  .hero-stat .num {
+    font-family: var(--serif);
+    font-size: clamp(40px, 5.6vw, 64px);
+    line-height: 1;
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    color: var(--oxblood);
+    margin-bottom: 16px;
+  }
+  .hero-stat .lbl {
+    font-family: var(--sans);
+    font-size: 11.5px;
+    line-height: 1.45;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+  @media (max-width: 720px) {
+    .hero-stats { grid-template-columns: 1fr; }
+    .hero-stat { padding: 22px 8px; }
+  }
+
+  .hero-meta {
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+  }
+  .hero-meta-left {
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.7;
+    color: var(--mid);
+    letter-spacing: 0.04em;
+  }
+  .hero-meta-left strong { color: var(--ink); font-weight: 500; }
+  .scroll-cue {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--mid);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .scroll-cue .line {
+    width: 28px; height: 1px;
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-cue .line::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--maple);
+    transform: translateX(-100%);
+    animation: scrollLine 2.6s var(--ease) infinite;
+  }
+  @keyframes scrollLine {
+    0% { transform: translateX(-100%); }
+    50% { transform: translateX(0%); }
+    100% { transform: translateX(100%); }
+  }
+
+  /* SECTION FRAME */
+  section.act { padding: 120px 32px; position: relative; }
+  .act-inner { max-width: var(--max); margin: 0 auto; }
+  .act-header {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 48px;
+    margin-bottom: 64px;
+    align-items: start;
+  }
+  .act-numeral {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--maple);
+    padding-top: 12px;
+    border-top: 2px solid var(--maple);
+    width: max-content;
+  }
+  .act-title {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5.4vw, 72px);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    font-weight: 300;
+    color: var(--ink);
+    max-width: 920px;
+  }
+  .act-title em { font-style: italic; color: var(--oxblood); font-weight: 300; }
+  @media (max-width: 720px) {
+    section.act { padding: 80px 22px; }
+    .act-header { grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
+  }
+
+  .lede {
+    font-family: var(--serif);
+    font-size: clamp(20px, 2.4vw, 26px);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.45;
+    color: var(--mid);
+    max-width: var(--column);
+    margin-bottom: 40px;
+    letter-spacing: -0.005em;
+  }
+  .lede em { font-style: normal; color: var(--ink); }
+
+  .prose {
+    max-width: var(--column);
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 19.5px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+  .prose p { margin-bottom: 22px; }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose strong { color: var(--ink); font-weight: 500; }
+  .prose em { font-style: italic; }
+  .prose a { color: var(--oxblood); text-decoration: none; border-bottom: 1px solid currentColor; }
+  .prose a:hover { color: var(--maple); }
+
+  .prose-lead p:first-child::first-letter {
+    font-family: var(--serif);
+    font-size: 5.4em;
+    line-height: 0.85;
+    float: left;
+    margin: 0.05em 0.08em -0.05em 0;
+    color: var(--oxblood);
+    font-weight: 400;
+    font-style: italic;
+  }
+
+  /* PULL QUOTE */
+  .pull {
+    margin: 56px 0;
+    padding-left: 32px;
+    border-left: 2px solid var(--maple);
+    max-width: 900px;
+  }
+  .pull-text {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(24px, 3.2vw, 36px);
+    line-height: 1.3;
+    color: var(--ink);
+    letter-spacing: -0.012em;
+  }
+  .pull-attrib {
+    margin-top: 22px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--maple);
+  }
+
+  /* BIG NUMBER */
+  .big-num {
+    margin: 80px 0;
+    text-align: center;
+    padding: 40px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .big-num .num {
+    font-family: var(--serif);
+    font-size: clamp(72px, 14vw, 200px);
+    font-weight: 300;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: var(--oxblood);
+    margin-bottom: 16px;
+  }
+  .big-num .num em { font-style: italic; }
+  .big-num .lbl {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--mid);
+  }
+
+  /* STAT GRID */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    margin: 56px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stat-cell { background: var(--paper); padding: 32px 28px; }
+  .stat-cell .v {
+    font-family: var(--serif);
+    font-size: clamp(34px, 4.4vw, 52px);
+    line-height: 1;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.03em;
+    margin-bottom: 14px;
+  }
+  .stat-cell.accent .v { color: var(--oxblood); }
+  .stat-cell .k {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    line-height: 1.5;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  /* COMPARE TABLE */
+  .compare { margin: 56px 0; border-top: 2px solid var(--ink); }
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 0;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .compare-row.head { border-bottom: 1px solid var(--ink); }
+  .compare-row.head > div {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--mid);
+  }
+  .compare-row .label {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .compare-row .v {
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .compare-row .v.accent { color: var(--oxblood); font-weight: 500; }
+  @media (max-width: 720px) {
+    .compare-row { grid-template-columns: 1fr; gap: 6px; padding: 16px 0; }
+    .compare-row .v { font-size: 13px; }
+    .compare-row.head { display: none; }
+    .compare-row .v::before {
+      content: attr(data-label);
+      display: inline-block;
+      width: 110px;
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: 0.16em;
+      color: var(--mid);
+      text-transform: uppercase;
+      margin-right: 8px;
+    }
+  }
+
+  /* PILLAR CARDS */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+    margin-top: 64px;
+  }
+  .pillar {
+    padding: 36px 32px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    position: relative;
+    transition: border-color 320ms var(--ease), transform 320ms var(--ease);
+  }
+  .pillar:hover { border-color: var(--ink); transform: translateY(-2px); }
+  .pillar-num {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--maple);
+    margin-bottom: 24px;
+  }
+  .pillar-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 18px;
+  }
+  .pillar-body {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 16.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+  }
+  .pillar-key {
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.6;
+    letter-spacing: 0.04em;
+    color: var(--oxblood);
+    padding-top: 18px;
+    border-top: 1px solid var(--rule);
+  }
+  .pillar-key strong { color: var(--ink); font-weight: 500; }
+
+  /* DARK SECTION */
+  section.dark { background: var(--ink); color: var(--paper); }
+  section.dark .lede { color: rgba(250, 248, 243, 0.72); }
+  section.dark .lede em { color: var(--paper); }
+  section.dark .prose { color: rgba(250, 248, 243, 0.84); }
+  section.dark .prose strong { color: var(--paper); }
+  section.dark .act-title { color: var(--paper); }
+  section.dark .act-title em { color: var(--maple); }
+  section.dark .act-numeral { color: var(--maple); border-color: var(--maple); }
+  section.dark .pull { border-color: var(--maple); }
+  section.dark .pull-text { color: var(--paper); }
+
+  /* CLOSING */
+  .close {
+    padding: 140px 32px 100px;
+    text-align: center;
+    background: var(--paper);
+    position: relative;
+  }
+  .close-mark {
+    font-family: var(--serif);
+    font-size: 42px;
+    color: var(--maple);
+    margin-bottom: 28px;
+    line-height: 1;
+  }
+  .close-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--maple);
+    margin-bottom: 28px;
+  }
+  .close-h {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(40px, 6vw, 76px);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 56px;
+    max-width: 860px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .manifesto {
+    margin: 56px auto;
+    max-width: 720px;
+    padding: 56px 32px;
+    border-top: 2px solid var(--maple);
+    border-bottom: 2px solid var(--maple);
+  }
+  .manifesto-line {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(28px, 4.2vw, 48px);
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .manifesto-line.last {
+    font-style: italic;
+    color: var(--oxblood);
+    margin-top: 14px;
+    margin-bottom: 0;
+  }
+  .closing-cta {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(22px, 2.8vw, 32px);
+    line-height: 1.35;
+    color: var(--ink);
+    max-width: 700px;
+    margin: 56px auto 24px;
+  }
+  .closing-cta em { font-style: italic; color: var(--oxblood); }
+  .closing-meta {
+    margin-top: 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mid);
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .closing-meta a { color: var(--oxblood); text-decoration: none; }
+  .closing-meta a:hover { color: var(--maple); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: rgba(250, 248, 243, 0.7);
+    padding: 64px 32px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    line-height: 1.7;
+  }
+  .footer-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px;
+  }
+  @media (max-width: 720px) { .footer-inner { grid-template-columns: 1fr; gap: 32px; } }
+  footer .head {
+    color: var(--paper);
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  footer p { margin-bottom: 8px; }
+  footer .leaf { color: var(--maple); }
+
+  /* SCENARIOS / RECEIPTS */
+  .receipts {
+    list-style: none;
+    margin: 32px 0;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .receipts li {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 24px;
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .receipts li .when {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--maple);
+    padding-top: 4px;
+  }
+  @media (max-width: 720px) {
+    .receipts li { grid-template-columns: 1fr; gap: 6px; padding: 16px 0; }
+    .receipts li .when { font-size: 10px; }
+  }
+
+  /* heading inside section */
+  .h-section {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(28px, 3.4vw, 40px);
+    letter-spacing: -0.02em;
+    margin: 64px 0 28px;
+    max-width: var(--column);
+  }
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="progress"></div>
+
+<nav class="nav" id="nav">
+  <div class="nav-mark">
+    <span class="leaf" aria-hidden="true">🍁</span>
+    Team Canada
+  </div>
+  <div class="nav-meta">DOSSIER № 01 · v1.1 · MAY MMXXVI</div>
+</nav>
+
+<div class="rail" id="rail">
+  <a href="#thesis" data-target="thesis">I · THESIS</a>
+  <a href="#trap" data-target="trap">II · TRAP</a>
+  <a href="#numbers" data-target="numbers">III · NUMBERS</a>
+  <a href="#alberta" data-target="alberta">IV · ALBERTA</a>
+  <a href="#quebec" data-target="quebec">V · QUEBEC</a>
+  <a href="#truth" data-target="truth">VI · TRUTH</a>
+  <a href="#buildout" data-target="buildout">VII · BUILD-OUT</a>
+  <a href="#playbook" data-target="playbook">VIII · C-5</a>
+  <a href="#close" data-target="close">IX · CLOSE</a>
+</div>
+
+<header class="hero" id="top">
+  <div class="hero-grid">
+    <div class="eyebrow reveal-fade">
+      <span class="leaf" aria-hidden="true">🍁</span>
+      A Briefing for Canadians Who Can Read a Balance Sheet
+    </div>
+    <h1 class="hero-title reveal">Team <em>Canada</em>.</h1>
+    <p class="hero-sub reveal">The math of staying together — and the trap of being broken apart.</p>
+
+    <div class="hero-stats stagger">
+      <div class="hero-stat">
+        <div class="num">$5,100</div>
+        <div class="lbl">Per Canadian, annual GDP gain<br>from one statute already passed</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">$155B</div>
+        <div class="lbl">Federal debt an independent<br>Alberta inherits day one</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">37 GW</div>
+        <div class="lbl">Hydro-Québec capacity<br>the U.S. AI buildout cannot match</div>
+      </div>
+    </div>
+
+    <div class="hero-meta">
+      <div class="hero-meta-left">
+        <strong>Jesse James</strong><br>
+        Victoria, British Columbia · May MMXXVI<br>
+        <strong>fitforgov.com</strong>
+      </div>
+      <div class="scroll-cue"><div class="line"></div>Scroll</div>
+    </div>
+  </div>
+</header>
+
+<section class="act" id="thesis" data-rail="thesis">
+  <div class="act-inner">
+    <div class="act-header">
+      <div class="act-numeral reveal">§ I · The Thesis</div>
+      <h2 class="act-title reveal">A man walks into your shop.</h2>
+    </div>
+    <div class="prose prose-lead reveal">
+      <p>He praises your daughter, insults your wife, says your store is part of his strip mall now, and offers your business partner a private loan to walk out the back door. Then he asks whether you've thought about taking dollars instead of loonies. <em>That's the news of the last eighteen months, told straight.</em></p>
+      <p>This is not an argument that grievance is fake. Western alienation is real. Quebec's culture and language deserve protection. But grievance is not a plan, and a referendum is not an exit — it is the start of a negotiation in which the seceding province has the weakest hand at the table and the United States has its boots up on the desk.</p>
+    </div>
+
+    <div class="pull reveal">
+      <div class="pull-text">Each province alone is a vassal. Together, we are a peer.</div>
+      <div class="pull-attrib">Working thesis · 2026</div>
+    </div>
+  </div>
+</section>
+
+<section class="act dark" id="trap" data-rail="trap">
+  <div class="act-inner">
+    <div class="act-header">
+      <div class="act-numeral reveal">§ II · The Trap</div>
+      <h2 class="act-title reveal">It's set. <em>Here's how to see it.</em></h2>
+    </div>
+
+    <div class="prose reveal">
+      <p>The State Department has held — by NBC News and Financial Times reporting, confirmed by Premier David Eby and Prime Minister Mark Carney — at least three meetings with leaders of the Alberta Prosperity Project. Separatist organizers say the meetings included discussion of a <strong>$500 million transition loan</strong> and a <strong>one-for-one Canadian-to-U.S.-dollar swap</strong>. State Department officials, on background to NBC, denied senior officials were present and said no commitments were made. No documentary evidence has surfaced. The claims remain separatist allegations, not established U.S. policy. The rhetorical pattern around them is undeniable.</p>
+    </div>
+
+    <div class="pull reveal">
+      <div class="pull-text">"I think we should let them come down into the U.S., and Alberta's a natural partner for the U.S. They have great resources. The Albertans are very independent people."</div>
+      <div class="pull-attrib">Treasury Secretary Scott Bessent · Real America's Voice · 22 January 2026</div>
+    </div>
+
+    <div class="prose reveal">
+      <p>The Prime Minister has read the room. In his special address at the World Economic Forum in Davos on January 20, 2026, Mark Carney warned that <strong>"if great powers abandon even the pretense of rules and values for the unhindered pursuit of their power and interests, the gains from 'transactionalism' will become harder to replicate."</strong> He called the moment "a rupture, not a transition" in the international order. The day after that speech, Trump rescinded Canada's invitation to his Board of Peace. Two days after that, Bessent went on Real America's Voice.</p>
+      <p>And as of April 13, 2026, the federal government has the runway to act. Carney's Liberals secured a majority that night when Danielle Martin won University–Rosedale, Doly Begum took Scarborough Southwest, and Tatiana Auguste took Terrebonne — bringing the Liberal seat count to 174. The path to that majority ran through five floor-crossings since November 2025 plus the three byelection wins. Whatever you make of the math, the result is the same: <strong>a government with a mandate through 2029 to build the spine</strong>.</p>
+    </div>
+
+    <div class="pull reveal">
+      <div class="pull-text">The American interest is to deal with Canada one province at a time. A fragmented Canada is a price-taker on every commodity. A unified Canada is a price-maker. That is the entire game.</div>
+      <div class="pull-attrib">The thesis, restated</div>
+    </div>
+  </div>
+</section>
+
+<section class="act" id="numbers" data-rail="numbers">
+  <div class="act-inner">
+    <div class="act-header">
+      <div class="act-numeral reveal">§ III · The Numbers</div>
+      <h2 class="act-title reveal">The country, <em>on one page.</em></h2>
+    </div>
+
+    <p class="lede reveal">All figures most-recent available, early 2026. <em>Official sources. No estimates dressed up as facts.</em></p>
+
+    <div class="stat-grid stagger">
+      <div class="stat-cell"><div class="v">41.7M</div><div class="k">Population — Statistics Canada, July 2025</div></div>
+      <div class="stat-cell"><div class="v">$3.1T</div><div class="k">Canada nominal GDP, 2024</div></div>
+      <div class="stat-cell accent"><div class="v">$1,266B</div><div class="k">Federal accumulated deficit, March 2025</div></div>
+      <div class="stat-cell"><div class="v">5.0M bpd</div><div class="k">Canadian oil production · 4th globally</div></div>
+      <div class="stat-cell accent"><div class="v">All 34</div><div class="k">Critical minerals on the federal list</div></div>
+      <div class="stat-cell"><div class="v">$63B</div><div class="k">FY2025-26 defence — first time at NATO 2% since 1990s</div></div>
+    </div>
+
+    <div class="prose reveal">
+      <p>NATO's new pledge target adopted at the 2025 Hague summit: <strong>5% of GDP by 2035</strong> (3.5% direct military, 1.5% defence-related). For Canada, that's a path to roughly $155 billion in annual defence and security spending by the end of the decade. That number is the floor under everything else in this briefing.</p>
+      <p>The other number worth memorizing: <strong>$5,100 per Canadian, every year, in retained GDP, from a single statute that already passed</strong>. Bill C-5 — the One Canadian Economy Act — received Royal Assent on June 26, 2025, and came into full force on January 1, 2026. The 2022 Macdonald-Laurier Institute paper by Manucha and Tombe estimates full mutual recognition expands the economy by 4.4% to 7.9% in the long term — between $110 and $200 billion annually. The 7.9% upper bound is the prize. Even the lower bound is transformational. <em>And we got it without breaking up the country.</em></p>
+    </div>
+  </div>
+</section>
+
+<section class="act" id="alberta" data-rail="alberta">
+  <div class="act-inner">
+    <div class="act-header">
+      <div class="act-numeral reveal">§ IV · Scenario One</div>
+      <h2 class="act-title reveal">Alberta walks. Dollarized. <em>The bill comes due.</em></h2>
+    </div>
+
+    <p class="lede reveal">Premise: Alberta passes a referendum, negotiates secession under the framework of the 1998 Supreme Court <em>Reference re Secession of Quebec</em>, and adopts the U.S. dollar.</p>
+
+    <div class="prose reveal">
+      <p>Trevor Tombe at the University of Calgary — the most cited economist on Canadian fiscal federalism, and a member of the Alberta government's own AlbertaNext panel — has modelled this. Even a modest 5% increase in trade frictions with the rest of Canada lops <strong>roughly 4% off Alberta's GDP</strong>, about <strong>$20 billion a year</strong>, or <strong>$3,900 per Albertan, every year, forever</strong>. At an 8% non-tariff barrier — entirely realistic given how interprovincial trade actually works — the loss climbs to $30 billion a year, 6% of GDP.</p>
+    </div>
+
+    <div class="big-num reveal">
+      <div class="num">$<em>30,000</em></div>
+      <div class="lbl">New sovereign debt per Albertan, day one</div>
+    </div>
+
+    <div class="prose reveal">
+      <p>Alberta has no army, no navy, no air force, no coast guard, no intelligence service, no diplomatic corps, no central bank, no passport system, no border posts, no customs service, and no FX reserves. The Alberta Prosperity Project's own "fully costed plan" estimates <strong>$98 to $107 billion in startup costs</strong>. To meet NATO's new 5% Hague pledge: <strong>$25 billion a year — roughly the entire current Alberta provincial budget</strong>.</p>
+      <p>And then there's the cleanup. Alberta's official oil and gas closure liability runs anywhere from <strong>$36.6 billion</strong> on the AER's own books to as much as <strong>$260 billion</strong> in the regulator's leaked worst-case slide deck. Industry security currently held against this liability: under $295 million.</p>
+    </div>
+
+    <div class="pull reveal">
+      <div class="pull-text">A $500 billion economy that loses 4 to 6% of GDP up front, takes on $150 billion in debt, $200 billion in environmental obligations, and builds a state from zero for $100 billion. Then it adopts the currency of the country negotiating against it. That is not independence. That is the 51st state without the senators.</div>
+      <div class="pull-attrib">Scenario One · the math, finished</div>
+    </div>
+
+    <div class="prose reveal">
+      <p>One more bill that does not appear in any APP slide. Almost every productive acre of Alberta is covered by Treaty 6, Treaty 7, and Treaty 8 — agreements signed with the Imperial Crown, not with Alberta. On December 5, 2025, Court of King's Bench Justice Colin Feasby ruled that <strong>"the Numbered Treaties are legally binding on First Nations, Canada, and Alberta"</strong> and that converting provincial borders into international borders would significantly impair treaty rights. Feasby's ruling expressly disclaims giving First Nations a veto. The Smith government has since amended the Citizen Initiative Act via Bill 14. The litigation continues. The constitutional gravity is not in doubt.</p>
+    </div>
+  </div>
+</section>
+
+<section class="act dark" id="quebec" data-rail="quebec">
+  <div class="act-inner">
+    <div class="act-header">
+      <div class="act-numeral reveal">§ V · Scenario Two</div>
+      <h2 class="act-title reveal">Quebec walks. French currency, pegged to USD. <em>Same trap.</em></h2>
+    </div>
+
+    <p class="lede reveal">The standard Quebec separatist counter: <em>"Quebec is different. We have language. We have culture. We have Hydro-Québec. We are not Alberta."</em> All true. None of it changes the monetary math.</p>
+
+    <div class="prose reveal">
+      <p>A peg to the U.S. dollar means the Banque du Québec must hold enough USD reserves to defend it under any speculative attack, must raise interest rates whenever the Federal Reserve raises them (or watch capital flee), and must accept that the price of every imported good is set in Washington. <strong>Print all the piastres you want; the moment you peg, you are dollarized in everything but the artwork.</strong></p>
+      <p>Argentina pegged to the dollar from 1991 to 2002. The peg held until it didn't, and when it broke, the country lost 28% of GDP in two years and 57% of households fell into poverty.</p>
+    </div>
+
+    <div class="big-num reveal">
+      <div class="num">96.3<em>%</em></div>
+      <div class="lbl">Cree referendum result · 24 October 1995 · "We will remain in Canada"</div>
+    </div>
+
+    <div class="prose reveal">
+      <p>The James Bay and Northern Quebec Agreement of 1975 is a treaty protected by Section 35 of the Constitution Act, 1982. It cannot be altered without Cree and Inuit consent. The Cree position, articulated then by Grand Chief Matthew Coon Come and reiterated since, is that they would remain in Canada — taking the territory of <em>Eeyou Istchee</em>, including most of the Hydro-Québec generating fleet, with them. <strong>Independent Quebec might lose access — partially or entirely — to the very assets that supposedly make the project economically viable.</strong></p>
+      <p>Polling is reading the same map. Pallas Data and <em>The Walrus</em>, January 2026: <strong>62% of Quebecers oppose holding a referendum at all in a PQ first mandate; only 32% favour</strong>. The April 2026 Pallas follow-up showed unfavourability hardening to <strong>71%</strong>. Even Lucien Bouchard — the man who came within 54,288 votes of winning in 1995 — has publicly urged Plamondon to back off.</p>
+    </div>
+  </div>
+</section>
+
+<section class="act" id="truth" data-rail="truth">
+  <div class="act-inner">
+    <div class="act-header">
+      <div class="act-numeral reveal">§ VI · The Shared Truth</div>
+      <h2 class="act-title reveal">Dollarization is surrender. <em>The flag doesn't change that.</em></h2>
+    </div>
+
+    <p class="lede reveal">Take the two scenarios and lay them next to each other. The differences are real. The bottom line is identical.</p>
+
+    <div class="compare reveal">
+      <div class="compare-row head">
+        <div></div>
+        <div>Alberta · USD</div>
+        <div>Quebec · piastre/USD</div>
+      </div>
+      <div class="compare-row">
+        <div class="label">Population</div>
+        <div class="v" data-label="Alberta">5.0 M</div>
+        <div class="v" data-label="Quebec">9.1 M</div>
+      </div>
+      <div class="compare-row">
+        <div class="label">GDP</div>
+        <div class="v" data-label="Alberta">~$500 B</div>
+        <div class="v" data-label="Quebec">~$580 B</div>
+      </div>
+      <div class="compare-row">
+        <div class="label">Debt share (mid)</div>
+        <div class="v accent" data-label="Alberta">~$155 B</div>
+        <div class="v accent" data-label="Quebec">~$278 B</div>
+      </div>
+      <div class="compare-row">
+        <div class="label">Build-state cost</div>
+        <div class="v" data-label="Alberta">$98–107 B</div>
+        <div class="v" data-label="Quebec">~$60–80 B</div>
+      </div>
+      <div class="compare-row">
+        <div class="label">Defence at NATO 5%</div>
+        <div class="v" data-label="Alberta">$25 B</div>
+        <div class="v" data-label="Quebec">$27 B</div>
+      </div>
+      <div class="compare-row">
+        <div class="label">Indigenous treaty exposure</div>
+        <div class="v" data-label="Alberta">Treaties 6, 7, 8, 10</div>
+        <div class="v" data-label="Quebec">JBNQA — hydro complex</div>
+      </div>
+      <div class="compare-row">
+        <div class="label">Energy artery</div>
+        <div class="v" data-label="Alberta">Line 5 through MI</div>
+        <div class="v" data-label="Quebec">Line 5 through MI</div>
+      </div>
+      <div class="compare-row">
+        <div class="label">Currency outcome</div>
+        <div class="v" data-label="Alberta">Direct U.S. dollar</div>
+        <div class="v" data-label="Quebec">Pegged to U.S. dollar</div>
+      </div>
+      <div class="compare-row">
+        <div class="label">Effective monetary policy</div>
+        <div class="v accent" data-label="Alberta">Set by Federal Reserve</div>
+        <div class="v accent" data-label="Quebec">Set by Federal Reserve</div>
+      </div>
+    </div>
+
+    <div class="pull reveal">
+      <div class="pull-text">Once your money is American, the negotiations are American. Language sovereignty doesn't save you from monetary capture. Cultural sovereignty doesn't save you from a Houston refinery turnaround.</div>
+      <div class="pull-attrib">The shared truth, plain</div>
+    </div>
+
+    <h3 class="h-section reveal">The receipts.</h3>
+
+    <ul class="receipts stagger">
+      <li><span class="when">Jan 2025</span><span>Trump assumes office; "51st state" rhetoric becomes daily.</span></li>
+      <li><span class="when">Feb 2025</span><span>25% tariffs threatened on Canadian goods; 10% on energy.</span></li>
+      <li><span class="when">Apr 2025</span><span>First State Department meeting with APP leadership (FT reporting).</span></li>
+      <li><span class="when">Summer 2025</span><span>"Make Alberta Great Again" hats at Calgary rallies; Highway 2 billboards.</span></li>
+      <li><span class="when">Jan 22, 2026</span><span>Bessent on RAV: Alberta "a natural partner for the U.S."</span></li>
+      <li><span class="when">Feb 2026</span><span>NBC News confirms three meetings; State Dept disputes content of conversations.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="act" id="buildout" data-rail="buildout">
+  <div class="act-inner">
+    <div class="act-header">
+      <div class="act-numeral reveal">§ VII · The Affirmative Thesis</div>
+      <h2 class="act-title reveal">What staying together <em>and building</em> looks like.</h2>
+    </div>
+
+    <p class="lede reveal">Now the part too few unity briefings ever get to. <em>Staying in Canada is not a defensive crouch.</em> It is the necessary condition for a build-out that, on the other side, makes Canada richer than at any point in our history.</p>
+
+    <div class="pillars stagger">
+      <div class="pillar">
+        <div class="pillar-num">Pillar I</div>
+        <div class="pillar-title">Refine our own crude.</div>
+        <p class="pillar-body">Canada produces ~5 million bpd and refines about 1.93 million. The other 3-plus million we ship raw to the U.S. Gulf Coast, where it's refined and the value-added is captured by Houston. We are surrendering an estimated 30% value gap.</p>
+        <div class="pillar-key">Build target · <strong>800,000 bpd new refining capacity</strong> · capex ~$40–60B · captures $20–35/barrel value-add · <strong>$6–10B/yr retained GDP</strong>.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">Pillar II</div>
+        <div class="pillar-title">Power our own compute.</div>
+        <p class="pillar-body">Hydro-Québec at 37,370 MW. BC Hydro at 13,200 MW with Site C fully commissioned August 2025. The largest, cleanest, dispatchable power fleet in the Western Hemisphere. The U.S. is running out of grid: BloombergNEF Dec 1, 2025 raised its 2035 forecast to 106 GW.</p>
+        <div class="pillar-key">Build target · <strong>10 GW of Canadian AI compute by 2030</strong> · $80–120B capex on Canadian soil · <strong>$8–10B/yr in electricity revenue</strong> to provincial Crowns.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">Pillar III</div>
+        <div class="pillar-title">The Fort McMurray to Prince Rupert spine.</div>
+        <p class="pillar-body">Premier Smith publicly asked PM Carney for Northern Gateway 2.0 in May 2025. Trans Mountain operating since May 2024 has proven Asian buyers — including GS Caltex (Chevron JV) and SK Energy — pay full international price. Shipping times to Asia 60% shorter than from the Gulf Coast.</p>
+        <div class="pillar-key">Build target · <strong>$60–100B multimodal corridor</strong> · pipeline + HVDC transmission + rail upgrade · First Nations equity via doubled <strong>$10B Indigenous Loan Guarantee Program</strong>.</div>
+      </div>
+    </div>
+
+    <div class="pull reveal" style="margin-top: 80px;">
+      <div class="pull-text">In a Canada that has refined its own crude, runs the AI compute layer for half a continent, and ships heavy oil and lithium out of Prince Rupert to Korea and Japan and India — an American tariff threat is a problem the U.S. industrial Midwest is going to lobby its own government against, because Houston refineries and Ohio data centres need what we sell.</div>
+      <div class="pull-attrib">From price-takers to price-makers</div>
+    </div>
+  </div>
+</section>
+
+<section class="act dark" id="playbook" data-rail="playbook">
+  <div class="act-inner">
+    <div class="act-header">
+      <div class="act-numeral reveal">§ VIII · The Practical Playbook</div>
+      <h2 class="act-title reveal">Bill C-5 is <em>already doing the work.</em></h2>
+    </div>
+
+    <div class="prose reveal">
+      <p>Prime Minister Mark Carney, the moment he took office, tabled the One Canadian Economy Act. It received Royal Assent on June 26, 2025, and came into force on January 1, 2026. It does two big things and one small huge thing.</p>
+      <p><strong>One.</strong> Federal law now treats any good produced or service delivered to provincial standards as automatically meeting comparable federal standards for interprovincial movement. A nurse licensed in Saskatchewan can practise in Ontario without re-credentialing.</p>
+      <p><strong>Two.</strong> The federal Cabinet can designate "national interest projects" and fast-track them through what used to be ten years of overlapping regulatory review.</p>
+      <p><strong>Three.</strong> All 53 federal exceptions in the CFTA, gone, as of June 30, 2025.</p>
+    </div>
+
+    <div class="big-num reveal" style="border-color: rgba(250,248,243,0.25);">
+      <div class="num" style="color: var(--maple);">$<em>5,100</em></div>
+      <div class="lbl" style="color: rgba(250,248,243,0.6);">Per Canadian, every year, from a single statute that already passed</div>
+    </div>
+
+    <div class="prose reveal">
+      <p>That is bigger than every federal cheque most families have ever received. It is bigger than the entire Alberta–Ottawa fiscal dispute. It is bigger than the equalization fight. <strong>And we got it without breaking up the country.</strong></p>
+      <p>Anyone who says "Canada doesn't work" needs to be handed the C-5 number.</p>
+    </div>
+  </div>
+</section>
+
+<section class="close" id="close" data-rail="close">
+  <div class="close-mark reveal-fade">❦</div>
+  <div class="close-eyebrow reveal">§ IX · In Plain Language</div>
+  <h2 class="close-h reveal">Two truths fit on one card.</h2>
+
+  <div class="prose" style="margin: 0 auto 56px; text-align: center;">
+    <p class="reveal">Every honest piece of arithmetic in this briefing — debt share, military startup, environmental overhang, GDP loss from trade frictions, monetary policy surrender, Indigenous treaty exposure, energy artery vulnerability — points the same direction. Whether you live in Lethbridge or in Sept-Îles, secession with U.S. dollarization makes you and your kids <strong>poorer, weaker, and more dependent on Washington</strong> than you have ever been. Trump knows this. That is why the offer is on the table.</p>
+    <p class="reveal">Every honest piece of arithmetic on the build-out points to a Canada that, by 2032, has <strong>structural leverage over the United States</strong> rather than the other way around.</p>
+  </div>
+
+  <div class="manifesto stagger">
+    <div class="manifesto-line">Trump set a trap.</div>
+    <div class="manifesto-line">The bait is dollars.</div>
+    <div class="manifesto-line">The cage is dependency.</div>
+    <div class="manifesto-line last">The way out is up.</div>
+  </div>
+
+  <div class="closing-cta reveal">
+    <em>Go Canada. Build the spine.<br>
+    Refine the crude. Power the compute.<br>
+    Pay the debt as one country.<br>
+    Negotiate as a peer.</em>
+  </div>
+
+  <p class="reveal" style="font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--mid); max-width: 600px; margin: 56px auto 0;">
+    The math says we can do this. The map says we are already most of the way there. The only question is whether we have the nerve to finish.
+  </p>
+
+  <div class="closing-meta">
+    <div>Jesse James · Victoria, BC</div>
+    <div><a href="https://fitforgov.com">fitforgov.com</a> · <a href="https://linkedin.com/in/jessecares">linkedin.com/in/jessecares</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="head">Team Canada</div>
+      <p>Dossier № 01 · v1.1 · May MMXXVI</p>
+      <p>A briefing for Canadians who can read a balance sheet.</p>
+      <p>Cite freely. Print it out. Hand it to the cousin quoting MAGA hats since the inauguration.</p>
+    </div>
+    <div>
+      <div class="head">Sources</div>
+      <p>Statistics Canada</p>
+      <p>Court of King's Bench, Alberta</p>
+      <p>Tombe (U Calgary) / MLI / IMF</p>
+      <p>NBC News · FT · Globe and Mail</p>
+      <p>BloombergNEF · Goldman Sachs Research</p>
+      <p>NATO Hague Summit Declaration 2025</p>
+    </div>
+    <div>
+      <div class="head">Imprint</div>
+      <p>Jesse James, Principal</p>
+      <p>Victoria, British Columbia</p>
+      <p><a href="https://fitforgov.com" style="color:inherit;text-decoration:none;border-bottom:1px solid var(--rule);">Built by Fit For Gov</a></p>
+      <p><a href="tel:+12504155678" style="color:inherit;text-decoration:none;">+1 250 415 5678</a></p>
+      <p style="margin-top: 16px;"><span class="leaf" aria-hidden="true">&#127809;</span> Built to last.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const progress = document.getElementById('progress');
+  const nav = document.getElementById('nav');
+
+  function onScroll() {
+    const h = document.documentElement;
+    const scrolled = h.scrollTop;
+    const max = h.scrollHeight - h.clientHeight;
+    const pct = max > 0 ? (scrolled / max) * 100 : 0;
+    progress.style.width = pct + '%';
+    nav.classList.toggle('is-scrolled', scrolled > 40);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const revealEls = document.querySelectorAll('.reveal, .reveal-fade, .stagger');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  revealEls.forEach(el => io.observe(el));
+
+  const railLinks = document.querySelectorAll('.rail a');
+  const sections = document.querySelectorAll('section[data-rail]');
+  const railIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const id = entry.target.id;
+      const link = document.querySelector(`.rail a[data-target="${id}"]`);
+      if (!link) return;
+      if (entry.isIntersecting) {
+        railLinks.forEach(l => l.classList.remove('is-active'));
+        link.classList.add('is-active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -40% 0px' });
+  sections.forEach(s => railIO.observe(s));
+</script>
+
+</body>
+</html>
