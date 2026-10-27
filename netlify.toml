@@ -11,3 +11,14 @@
   for = "/og.png"
   [headers.values]
     Cache-Control = "public, max-age=86400"
+
+# This site is retired. The dossier lives on, revised and with live figures,
+# as Act III of Northern Temper. Everything here redirects there permanently,
+# so search engines and old links follow the argument to its one home rather
+# than finding two copies of it. `force = true` because the files still exist
+# in this repo and Netlify would otherwise serve them ahead of the redirect.
+[[redirects]]
+  from = "/*"
+  to = "https://northerntemper.ca/math"
+  status = 301
+  force = true
